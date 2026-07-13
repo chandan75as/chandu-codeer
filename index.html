@@ -3,513 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chandu Coder | Animated Portfolio</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Harappa Map RPG - Mobile Version</title>
     <style>
-        /* Colorful Dark Theme */
-        :root {
-            --bg-dark: #0f172a; 
-            --bg-card: rgba(30, 41, 59, 0.7);
-            
-            /* Multiple Colors */
-            --color-pink: #ff2a5f;
-            --color-blue: #00d2ff;
-            --color-yellow: #ffaa00;
-            --color-green: #00e676;
-            --color-purple: #a020f0;
-
-            /* Colorful Gradient */
-            --multi-gradient: linear-gradient(90deg, var(--color-pink), var(--color-blue), var(--color-purple));
-            
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--color-blue); border-radius: 5px; }
-
-        html, body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Navbar Layout with Drop Animation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            animation: slideDownNav 1s ease-out forwards;
-        }
-        
-        .nav-container {
+            background-color: #1a1a1a;
+            overflow: hidden; /* Phone par scrolling rokne ke liye */
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--multi-gradient);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: colorShift 4s linear infinite;
-            cursor: pointer;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover { color: var(--color-blue); }
-
-        /* Hamburger Menu Icon */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 6px;
-            z-index: 1001;
-        }
-        .hamburger span {
-            width: 30px;
-            height: 3px;
-            background-color: var(--text-main);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section Load Animations */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            padding-top: 80px;
-            overflow: hidden;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+            touch-action: none; /* Swipe gestures rokne ke liye */
         }
         
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            opacity: 0;
-            animation: flyInLeft 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s;
-        }
-        
-        .hero h1 span {
-            background: var(--multi-gradient);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: colorShift 3s linear infinite;
-        }
-        
-        .typing-text {
-            font-size: 1.5rem;
-            color: var(--color-yellow);
-            margin-bottom: 20px;
-            font-weight: 600;
-            height: 30px;
-            opacity: 0;
-            animation: flyInRight 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.6s;
+        #gameWrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            opacity: 0;
-            animation: flyInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.9s;
+        canvas {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated; /* Retro look */
         }
 
-        .hero .btn {
-            opacity: 0;
-            animation: zoomPopIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 1.2s;
+        /* Mini Map Setting */
+        #miniMapCanvas {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            opacity: 0.9;
+            width: 150px;
+            height: 85px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--multi-gradient);
-            background-size: 200% auto;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
-            transition: all 0.3s ease;
-            border: none;
+        /* 🎮 Mobile D-Pad Buttons Styling */
+        #dpad {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dpad-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .dpad-btn {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            touch-action: none;
             cursor: pointer;
-        }
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            background-position: right center;
-            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.6);
+            backdrop-filter: blur(5px);
         }
 
-        /* WhatsApp Button Special Styling */
-        .btn-whatsapp {
-            background: #25D366;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        }
-        .btn-whatsapp:hover {
-            background: #1ebc5a;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
-            background-position: left center; /* override gradient hover */
+        .dpad-btn:active {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-color: white;
         }
 
-        /* Global Sections */
-        section { padding: 80px 0; border-top: 1px solid var(--border-color); overflow: hidden; }
-        .section-title { font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 50px; color: var(--text-main); }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; align-items: center; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        /* About Section */
-        .about-text p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
-        .blob-animation {
-            background: var(--multi-gradient);
-            background-size: 200% auto;
-            width: 280px; height: 280px; margin: 0 auto;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            animation: bubble 6s ease-in-out infinite, colorShift 5s linear infinite;
-            box-shadow: 0 10px 40px rgba(0, 210, 255, 0.3);
-        }
-
-        /* Skills */
-        .skills-display { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        .skill-tag {
-            display: flex; align-items: center; gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px; border-radius: 30px;
-            font-size: 1rem; font-weight: 500;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .skill-tag:nth-child(1) i { color: var(--color-pink); }
-        .skill-tag:nth-child(2) i { color: var(--color-yellow); }
-        .skill-tag:nth-child(3) i { color: var(--color-blue); }
-        .skill-tag:nth-child(4) i { color: var(--color-green); }
-        .skill-tag:nth-child(5) i { color: var(--color-purple); }
-
-        .skill-tag:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-8px) scale(1.1); }
-
-        /* Project Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 15px; padding: 30px 25px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; z-index: 1;
-        }
-        
-        .card::before {
-            content: ""; position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 15px; z-index: -1; opacity: 0;
-            transition: opacity 0.4s ease; margin: -2px;
-        }
-
-        .card:nth-child(1)::before { background: linear-gradient(135deg, var(--color-pink), var(--color-blue)); }
-        .card:nth-child(2)::before { background: linear-gradient(135deg, var(--color-blue), var(--color-green)); }
-        .card:nth-child(3)::before { background: linear-gradient(135deg, var(--color-yellow), var(--color-purple)); }
-        
-        .card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
-        .card:hover::before { opacity: 1; }
-        
-        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .card p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
-        .card-link { color: var(--color-blue); text-decoration: none; font-weight: 600; display: inline-block; transition: transform 0.3s;}
-        .card-link:hover { transform: translateX(10px); }
-
-        /* Contact Section */
-        .contact-box {
-            background: rgba(0,0,0,0.2); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border-color); text-align: center; max-width: 600px; margin: 0 auto;
-        }
-        .contact-box input, .contact-box textarea {
-            width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color); border-radius: 8px; color: #fff; outline: none; transition: 0.3s;
-        }
-        .contact-box input:focus, .contact-box textarea:focus { border-color: #25D366; background: rgba(255,255,255,0.1); }
-        footer { text-align: center; padding: 20px 0; background: #080c16; color: var(--text-muted); }
-
-        /* SCROLL REVEAL ANIMATION CLASSES */
-        .reveal { opacity: 0; transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translate(0) scale(1); }
-        .fly-left { transform: translateX(-150px); }
-        .fly-right { transform: translateX(150px); }
-        .fly-up { transform: translateY(100px); }
-        .zoom-in { transform: scale(0.5); }
-
-        /* KEYFRAMES */
-        @keyframes slideDownNav { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-        @keyframes flyInLeft { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes flyInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes flyInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes zoomPopIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-        @keyframes colorShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        @keyframes bubble { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 50% { border-radius: 70% 30% 40% 60% / 60% 40% 50% 40%; } }
-
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-links {
-                position: fixed; top: 0; right: 0; width: 60%; height: 100vh;
-                background: rgba(15, 23, 42, 0.98); flex-direction: column; justify-content: center; align-items: center;
-                padding: 40px 20px; border-left: 2px solid var(--color-blue);
-                transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            }
-            .nav-links.mobile-active { transform: translateX(0); }
-            .nav-links a { font-size: 1.2rem; margin: 15px 0; display: block; }
-            .hamburger.toggle span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); background: var(--color-pink); }
-            .hamburger.toggle span:nth-child(2) { opacity: 0; }
-            .hamburger.toggle span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); background: var(--color-blue); }
-            .grid-2 { grid-template-columns: 1fr; text-align: center; }
-            .hero h1 { font-size: 2.5rem; }
-            .fly-left, .fly-right { transform: translateY(50px); } 
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 20;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <div class="logo">ChanduCoder</div>
-            <div class="hamburger">
-                <span></span><span></span><span></span>
+    <div id="loading">Game Loading...<br><small>Map aur Character aa rahe hain</small></div>
+
+    <div id="gameWrapper">
+        <!-- Main Game Canvas -->
+        <canvas id="mainGameCanvas" width="960" height="540"></canvas>
+        
+        <!-- Mini Map Canvas -->
+        <canvas id="miniMapCanvas" width="200" height="110"></canvas>
+
+        <!-- Mobile Controls (D-Pad) -->
+        <div id="dpad">
+            <div class="dpad-row">
+                <div class="dpad-btn" id="btnUp">▲</div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Work</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="hero-content container">
-            <h1>Hi, I am <span>Chandu</span></h1>
-            <div class="typing-text">I am a <span id="typing"></span><span class="cursor">|</span></div>
-            <p>I build fast, beautiful, and easy-to-use websites and apps. I love coding and making simple ideas look great on screen.</p>
-            <a href="#contact" class="btn">Message Me</a>
-        </div>
-    </header>
-
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title reveal fly-up">About Me</h2>
-            <div class="grid-2">
-                <div class="about-text reveal fly-left">
-                    <p>Hello! I am a Web and App Developer. I enjoy creating things that live on the internet.</p>
-                    <p>My main goal is to write clean code and design websites that are easy for everyone to use. Whether it is a small website or a big app, I make sure it works perfectly on both phones and computers.</p>
-                </div>
-                <div class="reveal fly-right">
-                    <div class="blob-animation"></div>
-                </div>
+            <div class="dpad-row">
+                <div class="dpad-btn" id="btnLeft">◀</div>
+                <div class="dpad-btn" id="btnDown">▼</div>
+                <div class="dpad-btn" id="btnRight">▶</div>
             </div>
         </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title reveal fly-up">My Skills</h2>
-            <div class="skills-display">
-                <div class="skill-tag reveal zoom-in" style="transition-delay: 0.1s;"><i class="fab fa-html5"></i> HTML & CSS</div>
-                <div class="skill-tag reveal zoom-in" style="transition-delay: 0.2s;"><i class="fab fa-js"></i> JavaScript</div>
-                <div class="skill-tag reveal zoom-in" style="transition-delay: 0.3s;"><i class="fab fa-react"></i> React JS</div>
-                <div class="skill-tag reveal zoom-in" style="transition-delay: 0.4s;"><i class="fab fa-node-js"></i> Node JS</div>
-                <div class="skill-tag reveal zoom-in" style="transition-delay: 0.5s;"><i class="fas fa-database"></i> Database</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title reveal fly-up">My Best Work</h2>
-            <div class="grid-3">
-                
-                <!-- UPDATED PROJECT CARD -->
-                <div class="card reveal fly-up" style="transition-delay: 0.1s;">
-                    <h3 style="color: var(--color-pink);">Online Food Delivery</h3>
-                    <p>A fast food delivery website where users can order meals easily. It works perfectly on mobile phones.</p>
-                    <a href="https://dreamydelight75.github.io" target="_blank" class="card-link">View Project &rarr;</a>
-                </div>
-                
-                <div class="card reveal fly-up" style="transition-delay: 0.3s;">
-                    <h3 style="color: var(--color-blue);">Chat App</h3>
-                    <p>A messaging app to talk with friends in real-time. It is safe and very easy to use.</p>
-                    <a href="#" class="card-link">View Project &rarr;</a>
-                </div>
-                <div class="card reveal fly-up" style="transition-delay: 0.5s;">
-                    <h3 style="color: var(--color-yellow);">Data Dashboard</h3>
-                    <p>A clean page to show business numbers using colorful charts and simple designs.</p>
-                    <a href="#" class="card-link">View Project &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title reveal fly-up">Let's Talk</h2>
-            <div class="contact-box reveal zoom-in" style="transition-delay: 0.2s;">
-                <p style="margin-bottom: 20px;">Do you have an idea or want a new website? Send me a message directly on WhatsApp!</p>
-                <!-- WHATSAPP FORM -->
-                <form id="whatsapp-form">
-                    <input type="text" id="wa-name" placeholder="Your Name" required>
-                    <textarea id="wa-message" rows="4" placeholder="Type your message here..." required></textarea>
-                    <button type="submit" class="btn btn-whatsapp" style="width: 100%;">
-                        <i class="fab fa-whatsapp" style="margin-right: 8px; font-size: 1.2rem;"></i> Send on WhatsApp
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Chandu Coder. Built with simple code and love.</p>
-    </footer>
+    </div>
 
     <script>
-        // 1. Mobile Menu Logic
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        const links = document.querySelectorAll('.nav-links li');
+        const mainCanvas = document.getElementById('mainGameCanvas');
+        const ctxMain = mainCanvas.getContext('2d');
+        const miniMapCanvas = document.getElementById('miniMapCanvas');
+        const ctxMini = miniMapCanvas.getContext('2d');
+        const loadingScreen = document.getElementById('loading');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('mobile-active');
-            hamburger.classList.toggle('toggle');
-        });
-
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('mobile-active');
-                hamburger.classList.remove('toggle');
-            });
-        });
-
-        // 2. Simple Typing Effect
-        const words = ["Web Developer.", "App Maker.", "Freelancer."];
-        let i = 0;
-        let timer;
-
-        function typingEffect() {
-            let word = words[i].split("");
-            var loopTyping = function() {
-                if (word.length > 0) {
-                    document.getElementById('typing').innerHTML += word.shift();
-                } else {
-                    setTimeout(deletingEffect, 2000);
-                    return false;
-                };
-                timer = setTimeout(loopTyping, 100);
-            };
-            loopTyping();
+        // Game Settings
+        const game = {
+            zoom: 2.5,
+            keys: {},
+            collisionData: null
         };
 
-        function deletingEffect() {
-            let word = words[i].split("");
-            var loopDeleting = function() {
-                if (word.length > 0) {
-                    word.pop();
-                    document.getElementById('typing').innerHTML = word.join("");
-                } else {
-                    i = (i + 1) % words.length;
-                    typingEffect();
-                    return false;
-                };
-                timer = setTimeout(loopDeleting, 50);
-            };
-            loopDeleting();
+        // Player Details
+        const player = {
+            worldX: 500, 
+            worldY: 300, 
+            width: 40,
+            height: 40,
+            speed: 5
         };
 
-        setTimeout(typingEffect, 1500);
+        // Naya Character Load Karna (Knight PNG)
+        const playerImg = new Image();
+        playerImg.crossOrigin = "Anonymous";
+        playerImg.src = "https://img.icons8.com/color/96/000000/knight.png"; // Naya, clear RPG character
 
-        // 3. Scroll Reveal Engine
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { 
-            threshold: 0.1, 
-            rootMargin: "0px 0px -50px 0px" 
-        });
+        // Map Load Karna
+        const mapImg = new Image();
+        mapImg.crossOrigin = "Anonymous"; 
+        mapImg.src = "https://iili.io/CEwmKpj.jpg"; 
 
-        document.querySelectorAll('.reveal').forEach((el) => {
-            observer.observe(el);
-        });
+        // ⌨️ Keyboard Controls Track Karna
+        window.addEventListener('keydown', (e) => game.keys[e.key.toLowerCase()] = true);
+        window.addEventListener('keyup', (e) => game.keys[e.key.toLowerCase()] = false);
 
-        // 4. WhatsApp Integration Logic
-        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page from reloading
+        // 📱 Mobile Button Controls (Touch & Click)
+        function bindButton(btnId, keyName) {
+            const btn = document.getElementById(btnId);
             
-            // Get values from inputs
-            const name = document.getElementById('wa-name').value;
-            const message = document.getElementById('wa-message').value;
+            const press = (e) => { e.preventDefault(); game.keys[keyName] = true; };
+            const release = (e) => { e.preventDefault(); game.keys[keyName] = false; };
             
-            // Add '91' country code to your number
-            const phoneNumber = "919471122016"; 
+            // Mouse ke liye (agar PC par buttons click karein)
+            btn.addEventListener('mousedown', press);
+            btn.addEventListener('mouseup', release);
+            btn.addEventListener('mouseleave', release);
             
-            // Format the message text
-            const text = `Hello Chandu, my name is ${name}.%0A%0A${message}`;
+            // Touch screen ke liye (Phone par)
+            btn.addEventListener('touchstart', press, { passive: false });
+            btn.addEventListener('touchend', release, { passive: false });
+        }
+
+        bindButton('btnUp', 'w');
+        bindButton('btnDown', 's');
+        bindButton('btnLeft', 'a');
+        bindButton('btnRight', 'd');
+
+        // Loading Logic
+        let imagesLoaded = 0;
+        playerImg.onload = checkLoad;
+        mapImg.onload = checkLoad;
+
+        function checkLoad() {
+            imagesLoaded++;
+            if (imagesLoaded === 2) {
+                loadingScreen.style.display = "none";
+                setupCollisionMask();
+                gameLoop();
+            }
+        }
+
+        // Pani (Water) ki Collision Set karna
+        function setupCollisionMask() {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = mapImg.width;
+            tempCanvas.height = mapImg.height;
+            const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+            tempCtx.drawImage(mapImg, 0, 0);
             
-            // Create WhatsApp URL API link
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
+            try {
+                game.collisionData = tempCtx.getImageData(0, 0, mapImg.width, mapImg.height).data;
+            } catch (e) {
+                console.log("CORS error: Water collision might not work locally. Game will still run.");
+                game.collisionData = null;
+            }
+        }
+
+        function isWalkable(x, y) {
+            if (!game.collisionData) return true; 
             
-            // Open WhatsApp in a new tab
-            window.open(whatsappUrl, '_blank');
-        });
+            if (x < 0 || y < 0 || x >= mapImg.width || y >= mapImg.height) return false;
+
+            const pixelIndex = (Math.floor(y) * mapImg.width + Math.floor(x)) * 4;
+            const r = game.collisionData[pixelIndex];
+            const g = game.collisionData[pixelIndex + 1];
+            const b = game.collisionData[pixelIndex + 2];
+
+            // Agar blue zyada hai (Nadi / Paani)
+            if (b > 130 && r < 120 && g < 130) {
+                return false; 
+            }
+            return true;
+        }
+
+        function update() {
+            let nextX = player.worldX;
+            let nextY = player.worldY;
+
+            if (game.keys['w'] || game.keys['arrowup']) nextY -= player.speed;
+            if (game.keys['s'] || game.keys['arrowdown']) nextY += player.speed;
+            if (game.keys['a'] || game.keys['arrowleft']) nextX -= player.speed;
+            if (game.keys['d'] || game.keys['arrowright']) nextX += player.speed;
+
+            let canMoveX = isWalkable(nextX, player.worldY);
+            let canMoveY = isWalkable(player.worldX, nextY);
+
+            if (canMoveX) player.worldX = nextX;
+            if (canMoveY) player.worldY = nextY;
+
+            player.worldX = Math.max(player.width/2, Math.min(mapImg.width - player.width/2, player.worldX));
+            player.worldY = Math.max(player.height/2, Math.min(mapImg.height - player.height/2, player.worldY));
+        }
+
+        function drawMainGame() {
+            ctxMain.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+            ctxMain.imageSmoothingEnabled = false;
+
+            let cameraX = player.worldX - (mainCanvas.width / game.zoom) / 2;
+            let cameraY = player.worldY - (mainCanvas.height / game.zoom) / 2;
+
+            cameraX = Math.max(0, Math.min(mapImg.width - mainCanvas.width / game.zoom, cameraX));
+            cameraY = Math.max(0, Math.min(mapImg.height - mainCanvas.height / game.zoom, cameraY));
+
+            ctxMain.save();
+            ctxMain.scale(game.zoom, game.zoom);
+            ctxMain.translate(-cameraX, -cameraY);
+
+            ctxMain.drawImage(mapImg, 0, 0);
+
+            // Naya Character Draw karna
+            ctxMain.drawImage(
+                playerImg, 
+                player.worldX - player.width / 2, 
+                player.worldY - player.height / 2, 
+                player.width, 
+                player.height
+            );
+
+            ctxMain.restore();
+        }
+
+        function drawMiniMap() {
+            ctxMini.clearRect(0, 0, miniMapCanvas.width, miniMapCanvas.height);
+            
+            ctxMini.drawImage(mapImg, 0, 0, mapImg.width, mapImg.height, 0, 0, miniMapCanvas.width, miniMapCanvas.height);
+
+            const scaleX = miniMapCanvas.width / mapImg.width;
+            const scaleY = miniMapCanvas.height / mapImg.height;
+            const miniPlayerX = player.worldX * scaleX;
+            const miniPlayerY = player.worldY * scaleY;
+
+            ctxMini.beginPath();
+            ctxMini.arc(miniPlayerX, miniPlayerY, 4, 0, Math.PI * 2);
+            ctxMini.fillStyle = 'red';
+            ctxMini.fill();
+            ctxMini.strokeStyle = 'white';
+            ctxMini.lineWidth = 1.5;
+            ctxMini.stroke();
+            ctxMini.closePath();
+        }
+
+        function gameLoop() {
+            update();
+            drawMainGame();
+            drawMiniMap();
+            requestAnimationFrame(gameLoop);
+        }
+
     </script>
-
 </body>
 </html>
